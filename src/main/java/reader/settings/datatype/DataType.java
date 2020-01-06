@@ -1,5 +1,9 @@
 package reader.settings.datatype;
 
+/**
+ * Contains all valid DataTypes with Regex to check if Strings match the desired data type.
+ * Use String if content does not matter.
+ */
 public enum DataType {
     BOOLEAN("(true)|(false)"),
     INTEGER("(-\\d+|\\d+)"),
@@ -11,7 +15,7 @@ public enum DataType {
         this.regex = regex;
     }
 
-    boolean matches(String string) {
-        return string.matches(regex);
+    public boolean matches(String string) {
+        return string.replaceAll("\\s","").matches(regex);
     }
 }
