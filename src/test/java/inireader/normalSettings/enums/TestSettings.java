@@ -1,4 +1,4 @@
-package inireader.enums;
+package inireader.normalSettings.enums;
 
 import reader.settings.Setting;
 import reader.settings.datatype.DataType;

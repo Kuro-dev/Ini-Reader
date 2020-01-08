@@ -2,6 +2,12 @@ package reader.settings;
 
 import java.util.HashMap;
 
+/**
+ * Used to create customizable objects using ini file parameters.
+ * <p>Recommended use:</p>
+ * <p>Use this method like a factory method. Let it parse the settings from the HashMap
+ * and create a new Object instance using those parameters.</p>
+ */
 public interface InitializationSetting extends Section {
-    void init(HashMap<Setting, String> subSettings);
+    void init(HashMap<String, String> settings);
 }

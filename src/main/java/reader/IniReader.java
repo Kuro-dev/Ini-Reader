@@ -41,7 +41,10 @@ public class IniReader {
 
     /**
      * Must be invoked after creation to actually read the file.
+     * If {@link InitializationSetting}s are used please make sure to invoke {@link #addSettings(InitializationSetting...)}
+     * before invoking this method
      */
+    //TODO: 08.01.2020 CLean up this mess
     public void read() throws IOException {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(iniFile)));
         String line;
@@ -52,7 +55,11 @@ public class IniReader {
                 final boolean skipFirst = section == null;
                 section = stripSection(line);
                 if (!skipFirst) {
-                    sections.put(section, content);
+                    if (isInitializable(section)) {
+                        initialize(getInitSetting(section), content);
+                    } else {
+                        sections.put(section, content);
+                    }
                     content = new HashMap<>();
                 }
             } else {
@@ -71,6 +78,28 @@ public class IniReader {
             }
         }
         sections.put(section, content);
+    }
+
+    private void initialize(InitializationSetting setting, HashMap<String, String> content) {
+        setting.init(content);
+    }
+
+    private InitializationSetting getInitSetting(String section) {
+        for (InitializationSetting setting : initSettings) {
+            if (setting.getSection().equalsIgnoreCase(section)) {
+                return setting;
+            }
+        }
+        throw new RuntimeException("Initializable setting could not be found");
+    }
+
+    private boolean isInitializable(String section) {
+        for (InitializationSetting setting : initSettings) {
+            if (setting.getSection().equalsIgnoreCase(section)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private String stripSection(String string) {
