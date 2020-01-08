@@ -12,6 +12,16 @@ public class TestNormalSettingsFetching {
     private static final File ini = new File(System.getProperty("user.dir") + "/testResources/settings.ini");
     private static final IniReader reader = new IniReader(ini);
 
+    @Test()
+    public void throwExceptionFromBadIniFile() {
+        final File ini = new File(System.getProperty("user.dir") + "/testResources/badSettings.ini");
+        try {
+            new IniReader(ini).read();
+        } catch (Exception e) {
+            Assertions.assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
+
     @Test
     public void readIniReturnIniValue() throws IOException {
         reader.read();
