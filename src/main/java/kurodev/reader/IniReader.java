@@ -52,7 +52,6 @@ public class IniReader {
      * If {@link InitializationSetting}s are used please make sure to invoke {@link #addSettings(InitializationSetting...)}
      * before invoking this method
      */
-    //TODO: 08.01.2020 Clean up this mess
     public void read() throws IOException {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(iniFile)));
         String line;
