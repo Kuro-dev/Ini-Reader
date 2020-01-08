@@ -7,6 +7,7 @@ import java.util.HashMap;
  * <p>Recommended use:</p>
  * <p>Use this method like a factory method. Let it parse the settings from the HashMap
  * and create a new Object instance using those parameters.</p>
+ * @author Kuro
  */
 public interface InitializationSetting extends Section {
     void init(HashMap<String, String> settings);

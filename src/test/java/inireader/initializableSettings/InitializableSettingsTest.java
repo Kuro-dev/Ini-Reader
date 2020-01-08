@@ -7,6 +7,9 @@ import reader.IniReader;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Kuro
+ */
 public class InitializableSettingsTest {
     private static final File ini = new File(System.getProperty("user.dir") + "/testResources/settings.ini");
     private static final IniReader reader = new IniReader(ini);
