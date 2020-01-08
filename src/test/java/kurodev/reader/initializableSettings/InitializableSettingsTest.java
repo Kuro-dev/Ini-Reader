@@ -16,7 +16,7 @@ public class InitializableSettingsTest {
 
     @Test
     public void testSettingIsInitialized() throws IOException {
-        TestInitSetting testSetting = new TestInitSetting();
+        InitiliazableSettingTestClass testSetting = new InitiliazableSettingTestClass();
         reader.addSettings(testSetting);
         reader.read();
         Assertions.assertTrue(testSetting.getHasWorked());

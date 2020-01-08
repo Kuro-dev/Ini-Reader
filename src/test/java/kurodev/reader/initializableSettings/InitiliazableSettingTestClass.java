@@ -4,7 +4,7 @@ import kurodev.reader.settings.InitializationSetting;
 
 import java.util.HashMap;
 
-public class TestInitSetting implements InitializationSetting {
+public class InitiliazableSettingTestClass implements InitializationSetting {
     private boolean hasWorked = false;
 
     @Override
