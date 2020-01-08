@@ -2,6 +2,7 @@ package kurodev.inireader;
 
 import kurodev.inireader.settings.InitializationSetting;
 import kurodev.inireader.settings.Setting;
+import kurodev.inireader.util.Pair;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -61,22 +62,14 @@ public class IniReader {
             if (isSection(line)) {
                 final boolean skipFirst = section == null;
                 section = stripSection(line);
+                //TODO: remove this terrible workaround
                 if (!skipFirst) {
                     sections.put(section, content);
                 }
                 content = new HashMap<>();
             } else {
-                final String[] keyValue = line.split("=");
-                final int keyIndex = 0;
-                final int valueIndex = 1;
-                if (keyValue.length > 1) {
-                    final String whiteSpace = "\\s";
-                    final String key = keyValue[keyIndex].replaceAll(whiteSpace, "");
-                    final String value = keyValue[valueIndex].replaceAll(whiteSpace, "");
-                    content.put(key, value);
-                } else {
-                    System.err.println("cant parse sub key: " + line + " in " + section + " section");
-                }
+                final Pair<String, String> setting = Pair.parsePair(line);
+                content.put(setting.getKey(), setting.getValue());
             }
         }
         sections.put(section, content);
