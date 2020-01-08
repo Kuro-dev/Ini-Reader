@@ -1,6 +1,6 @@
-package inireader.normalSettings.enums;
+package kurodev.inireader.normalSettings.enums;
 
-import reader.settings.Section;
+import kurodev.inireader.settings.Section;
 
 public enum TestSections implements Section {
     SECTION1("section1");

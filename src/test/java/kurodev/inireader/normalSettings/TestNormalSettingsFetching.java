@@ -1,9 +1,9 @@
-package inireader.normalSettings;
+package kurodev.inireader.normalSettings;
 
-import inireader.normalSettings.enums.TestSettings;
+import kurodev.inireader.normalSettings.enums.TestSettings;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import reader.IniReader;
+import kurodev.inireader.IniReader;
 
 import java.io.File;
 import java.io.IOException;

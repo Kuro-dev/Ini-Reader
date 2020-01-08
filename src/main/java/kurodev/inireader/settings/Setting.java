@@ -1,6 +1,6 @@
-package reader.settings;
+package kurodev.inireader.settings;
 
-import reader.settings.datatype.DataType;
+import kurodev.inireader.settings.datatype.DataType;
 
 /**
  * Standard Settings for use in an Ini file.

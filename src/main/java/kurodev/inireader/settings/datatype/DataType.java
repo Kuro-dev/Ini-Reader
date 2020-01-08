@@ -1,4 +1,4 @@
-package reader.settings.datatype;
+package kurodev.inireader.settings.datatype;
 
 /**
  * Contains all valid DataTypes with Regex to check if Strings match the desired data type.

@@ -1,8 +1,8 @@
-package inireader.initializableSettings;
+package kurodev.inireader.initializableSettings;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import reader.IniReader;
+import kurodev.inireader.IniReader;
 
 import java.io.File;
 import java.io.IOException;

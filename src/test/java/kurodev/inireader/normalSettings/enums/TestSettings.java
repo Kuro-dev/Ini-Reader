@@ -1,7 +1,7 @@
-package inireader.normalSettings.enums;
+package kurodev.inireader.normalSettings.enums;
 
-import reader.settings.Setting;
-import reader.settings.datatype.DataType;
+import kurodev.inireader.settings.Setting;
+import kurodev.inireader.settings.datatype.DataType;
 
 public enum TestSettings implements Setting {
     SETTING_NR1(TestSections.SECTION1, DataType.STRING, "setting1", "codeValue"),

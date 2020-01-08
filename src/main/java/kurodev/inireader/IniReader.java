@@ -1,7 +1,7 @@
-package reader;
+package kurodev.inireader;
 
-import reader.settings.InitializationSetting;
-import reader.settings.Setting;
+import kurodev.inireader.settings.InitializationSetting;
+import kurodev.inireader.settings.Setting;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -66,8 +66,7 @@ public class IniReader {
                 }
                 content = new HashMap<>();
             } else {
-                final String subKey = line;
-                final String[] keyValue = subKey.split("=");
+                final String[] keyValue = line.split("=");
                 final int keyIndex = 0;
                 final int valueIndex = 1;
                 if (keyValue.length > 1) {
@@ -76,15 +75,15 @@ public class IniReader {
                     final String value = keyValue[valueIndex].replaceAll(whiteSpace, "");
                     content.put(key, value);
                 } else {
-                    System.err.println("cant parse sub key: " + subKey + " in " + section + " section");
+                    System.err.println("cant parse sub key: " + line + " in " + section + " section");
                 }
             }
         }
         sections.put(section, content);
-        initialize();
+        initializeAll();
     }
 
-    private void initialize() {
+    private void initializeAll() {
         sections.forEach((section, map) -> {
             if (isInitializable(section)) {
                 getInitSetting(section).init(map);
