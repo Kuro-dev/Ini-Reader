@@ -62,13 +62,9 @@ public class IniReader {
                 final boolean skipFirst = section == null;
                 section = stripSection(line);
                 if (!skipFirst) {
-                    if (isInitializable(section)) {
-                        initialize(getInitSetting(section), content);
-                    } else {
-                        sections.put(section, content);
-                    }
-                    content = new HashMap<>();
+                    sections.put(section, content);
                 }
+                content = new HashMap<>();
             } else {
                 final String subKey = line;
                 final String[] keyValue = subKey.split("=");
@@ -85,10 +81,15 @@ public class IniReader {
             }
         }
         sections.put(section, content);
+        initialize();
     }
 
-    private void initialize(InitializationSetting setting, HashMap<String, String> content) {
-        setting.init(content);
+    private void initialize() {
+        sections.forEach((section, map) -> {
+            if (isInitializable(section)) {
+                getInitSetting(section).init(map);
+            }
+        });
     }
 
     private InitializationSetting getInitSetting(String section) {
