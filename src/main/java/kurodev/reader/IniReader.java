@@ -1,8 +1,8 @@
-package kurodev.inireader;
+package kurodev.reader;
 
-import kurodev.inireader.settings.InitializationSetting;
-import kurodev.inireader.settings.Setting;
-import kurodev.inireader.util.Pair;
+import kurodev.reader.settings.InitializationSetting;
+import kurodev.reader.settings.Setting;
+import kurodev.reader.util.Pair;
 
 import java.io.*;
 import java.util.ArrayList;

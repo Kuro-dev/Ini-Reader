@@ -1,6 +1,6 @@
-package kurodev.inireader.initializableSettings;
+package kurodev.reader.initializableSettings;
 
-import kurodev.inireader.settings.InitializationSetting;
+import kurodev.reader.settings.InitializationSetting;
 
 import java.util.HashMap;
 

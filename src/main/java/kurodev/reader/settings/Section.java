@@ -1,4 +1,4 @@
-package kurodev.inireader.settings;
+package kurodev.reader.settings;
 
 /**
  * The base of all settings.

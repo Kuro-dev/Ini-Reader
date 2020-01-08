@@ -1,4 +1,4 @@
-package kurodev.inireader.util;
+package kurodev.reader.util;
 
 public class Pair<K, V> {
     private final K key;

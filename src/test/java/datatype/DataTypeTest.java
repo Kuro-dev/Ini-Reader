@@ -2,7 +2,7 @@ package datatype;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import kurodev.inireader.settings.datatype.DataType;
+import kurodev.reader.settings.datatype.DataType;
 
 public class DataTypeTest {
 

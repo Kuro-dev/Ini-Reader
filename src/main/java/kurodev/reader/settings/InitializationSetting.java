@@ -1,4 +1,4 @@
-package kurodev.inireader.settings;
+package kurodev.reader.settings;
 
 import java.util.HashMap;
 
