@@ -4,15 +4,16 @@ import reader.settings.Setting;
 import reader.settings.datatype.DataType;
 
 public enum TestSettings implements Setting {
-    SETTING_NR1(TestSections.TestSection,DataType.STRING,"setting1","someValue");
+    SETTING_NR1(TestSections.SECTION1, DataType.STRING, "setting1", "codeValue"),
+    SETTING_NR2(TestSections.SECTION1, DataType.STRING, "setting2", "codeValue");
 
-    private final TestSections section;
+    private final String section;
     private final DataType type;
     private final String setting;
     private final String defaultValue;
 
     TestSettings(TestSections section, DataType type, String setting, String defaultValue) {
-        this.section = section;
+        this.section = section.getSection();
         this.type = type;
         this.setting = setting;
         this.defaultValue = defaultValue;
@@ -20,21 +21,26 @@ public enum TestSettings implements Setting {
 
     @Override
     public DataType getType() {
-        return null;
+        return type;
     }
 
     @Override
     public String getSetting() {
-        return null;
+        return setting;
     }
 
     @Override
     public String getDefaultValue() {
-        return null;
+        return defaultValue;
     }
 
     @Override
     public String getSection() {
-        return null;
+        return section;
+    }
+
+    @Override
+    public String toString() {
+        return setting;
     }
 }

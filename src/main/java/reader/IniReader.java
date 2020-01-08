@@ -28,11 +28,12 @@ public class IniReader {
     }
 
     public String getSetting(Setting setting) {
-        String result = sections.get(setting.getSection()).get(setting.getSetting());
-        if (result == null) {
-            result = setting.getDefaultValue();
+        HashMap<String, String> resultMap = sections.get(setting.getSection());
+        if (resultMap == null) {
+            return setting.getDefaultValue();
         }
-        if (!setting.getType().matches(result)) {
+        String result = resultMap.get(setting.getSetting());
+        if (result == null || !setting.getType().matches(result)) {
             return setting.getDefaultValue();
         }
         return result;
@@ -45,12 +46,12 @@ public class IniReader {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(iniFile)));
         String line;
         String section = null;
+        HashMap<String, String> content = new HashMap<>();
         while ((line = reader.readLine()) != null) {
-            HashMap<String, String> content = new HashMap<>();
             if (isSection(line)) {
                 final boolean skipFirst = section == null;
-                section = line;
-                if (skipFirst) {
+                section = stripSection(line);
+                if (!skipFirst) {
                     sections.put(section, content);
                     content = new HashMap<>();
                 }
@@ -60,12 +61,20 @@ public class IniReader {
                 final int keyIndex = 0;
                 final int valueIndex = 1;
                 if (keyValue.length > 1) {
-                    content.put(keyValue[keyIndex], keyValue[valueIndex]);
+                    final String whiteSpace = "\\s";
+                    final String key = keyValue[keyIndex].replaceAll(whiteSpace, "");
+                    final String value = keyValue[valueIndex].replaceAll(whiteSpace, "");
+                    content.put(key, value);
                 } else {
                     System.err.println("cant parse sub key: " + subKey + " in " + section + " section");
                 }
             }
         }
+        sections.put(section, content);
+    }
+
+    private String stripSection(String string) {
+        return string.replaceAll("[\\[|\\]]", "");
     }
 
     private boolean isSection(String line) {

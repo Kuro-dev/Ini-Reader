@@ -3,7 +3,7 @@ package inireader.enums;
 import reader.settings.Section;
 
 public enum TestSections implements Section {
-    TestSection("section1");
+    SECTION1("section1");
 
     private final String section;
 
