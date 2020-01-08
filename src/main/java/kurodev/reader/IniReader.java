@@ -59,12 +59,8 @@ public class IniReader {
         HashMap<String, String> content = new HashMap<>();
         while ((line = reader.readLine()) != null) {
             if (isSection(line)) {
-                final boolean skipFirst = section == null;
                 section = stripSection(line);
-                //TODO: remove this terrible workaround
-                if (!skipFirst) {
-                    sections.put(section, content);
-                }
+                sections.put(section, content);
                 content = new HashMap<>();
             } else {
                 final Pair<String, String> setting = Pair.parsePair(line);
