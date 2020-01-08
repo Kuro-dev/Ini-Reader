@@ -7,7 +7,7 @@ import kurodev.reader.settings.datatype.DataType;
 public class DataTypeTest {
 
     @Test
-    public void testRegexForIntegerType() {
+    public void testMatchingIntegerType() {
         final String line = "25 ";
         Assertions.assertTrue(DataType.INTEGER.matches(line));
     }
