@@ -70,7 +70,7 @@ public class IniReader {
         sections.put(section, content);
         initializeAll();
     }
-
+        //TODO add object factory support for reusable initializables.
     private void initializeAll() {
         sections.forEach((section, map) -> {
             if (isInitializable(section)) {
