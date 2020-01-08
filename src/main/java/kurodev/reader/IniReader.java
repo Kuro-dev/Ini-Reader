@@ -92,13 +92,12 @@ public class IniReader {
         throw new RuntimeException("Initializable setting could not be found");
     }
 
+    /**
+     * @param section The section to check
+     * @return true if the section contains the key of any of the sections
+     */
     private boolean isInitializable(String section) {
-        for (InitializationSetting setting : initSettings) {
-            if (setting.getSection().equalsIgnoreCase(section)) {
-                return true;
-            }
-        }
-        return false;
+        return initSettings.stream().anyMatch(setting -> setting.getSection().equalsIgnoreCase(section));
     }
 
     private String stripSection(String string) {
