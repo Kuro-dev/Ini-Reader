@@ -28,7 +28,7 @@ class UnknownSettingsIniParsing {
         var instance = IniInstance.newInstance(in);
         assertTrue(instance instanceof UnknownSettingsImpl);
         assertEquals(6, instance.getSection("iniSection").size());
-        assertEquals("iniValue", instance.getSetting("setting1", "setting1"));
+        assertEquals("iniValue", instance.getSetting("section1", "setting1"));
         assertEquals("overridden", instance.getSetting("section3", "setting1"));
     }
 }
