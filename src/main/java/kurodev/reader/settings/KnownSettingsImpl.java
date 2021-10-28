@@ -1,6 +1,7 @@
-package kurodev.reader;
+package kurodev.reader.settings;
 
-import kurodev.reader.settings.Setting;
+import kurodev.reader.IniInstance;
+import kurodev.reader.SectionData;
 
 import java.util.EnumSet;
 import java.util.Map;

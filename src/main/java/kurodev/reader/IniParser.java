@@ -22,6 +22,12 @@ class IniParser {
     public Map<String, SectionData> parse(InputStream stream) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         var lines = reader.lines().collect(Collectors.toList());
+        readSections(lines);
+        assignMissingParents();
+        return map;
+    }
+
+    private void readSections(List<String> lines) {
         int lastSectionFound = -1;
         SectionData lastSection = null;
         for (int i = 0; i < lines.size(); i++) {
@@ -36,6 +42,9 @@ class IniParser {
         for (int i = lastSectionFound+1; i < lines.size(); i++) {
             parseSetting(lastSection, lines.get(i));
         }
+    }
+
+    private void assignMissingParents() {
         //assign missing parents to their children
         for (int i = 0, missingParentsMapSize = missingParents.size(); i < missingParentsMapSize; i++) {
             Pair<SectionData, String> missing = missingParents.get(i);
@@ -46,7 +55,6 @@ class IniParser {
             missing.getKey().setParent(parent);
             missingParents.remove(i);
         }
-        return map;
     }
 
     private SectionData onSectionFound(List<String> lines, int index, int lastSectionIndex, SectionData lastSection) {

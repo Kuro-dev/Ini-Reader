@@ -66,7 +66,7 @@ public class SectionData {
     @Override
     public String toString() {
         String inherited = parent != null ? "(" + parent.name + ")" : "";
-        return "[" + name + ']' + inherited;
+        return "Section: [" + name + ']' + inherited;
     }
 
     Map<String, String> getSettings() {

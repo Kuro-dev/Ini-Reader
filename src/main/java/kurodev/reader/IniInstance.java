@@ -1,5 +1,6 @@
 package kurodev.reader;
 
+import kurodev.reader.settings.KnownSettingsImpl;
 import kurodev.reader.settings.Section;
 import kurodev.reader.settings.Setting;
 

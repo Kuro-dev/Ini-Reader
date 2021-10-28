@@ -14,7 +14,9 @@ public interface Setting extends Section {
      * This can be used to check the corresponding Regex and find out whether or not the Ini file has an actually matching value
      * @see DataType
      */
-    DataType getType();
+    default DataType getType() {
+        return DataType.STRING;
+    }
 
     String getSetting();
 

@@ -11,7 +11,7 @@ public class UnknownSettingsImpl implements IniInstance {
     }
 
     public UnknownSettingsImpl(Map<String, SectionData> parsed) {
-    iniMap=parsed;
+        iniMap = parsed;
     }
 
     @Override
@@ -26,6 +26,6 @@ public class UnknownSettingsImpl implements IniInstance {
 
     @Override
     public String getSetting(String section, String setting, String defaultVal) {
-        return iniMap.get(section).get(setting,defaultVal);
+        return iniMap.get(section).get(setting, defaultVal);
     }
 }
