@@ -65,8 +65,18 @@ public class SectionData {
 
     @Override
     public String toString() {
+        return "Section: " + sectionString();
+    }
+
+    private String sectionString() {
         String inherited = parent != null ? "(" + parent.name + ")" : "";
-        return "Section: [" + name + ']' + inherited;
+        return "[" + name + ']' + inherited;
+    }
+
+    public String stringify() {
+        StringBuilder builder = new StringBuilder(this.sectionString()).append(System.lineSeparator());
+        settings.forEach((key, val) -> builder.append(key).append(" = ").append(val).append(System.lineSeparator()));
+        return builder.toString();
     }
 
     Map<String, String> getSettings() {
@@ -75,5 +85,9 @@ public class SectionData {
 
     public String getName() {
         return name;
+    }
+
+    public void setValue(String setting, String value) {
+        settings.put(setting, value);
     }
 }

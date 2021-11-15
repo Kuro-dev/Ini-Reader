@@ -1,44 +1,63 @@
 package kurodev.reader;
 
-import kurodev.reader.settings.KnownSettingsImpl;
-import kurodev.reader.settings.Section;
-import kurodev.reader.settings.Setting;
+import kurodev.reader.known.KnownSettingsImpl;
+import kurodev.reader.known.Setting;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 import java.util.Map;
 
 public interface IniInstance {
-    static IniInstance newInstance() {
+    static IniInstance createNew() {
         return new UnknownSettingsImpl();
     }
 
-    static IniInstance newInstance(InputStream stream) {
+    static IniInstance createNew(EnumSet<? extends Setting> settings, InputStream in) {
+        IniParser parser = new IniParser();
+        var parsed = parser.parse(in);
+        var out = new KnownSettingsImpl(parsed, settings);
+        out.init();
+        return out;
+    }
+
+    static IniInstance createNew(InputStream stream) {
         IniParser parser = new IniParser();
         var parsed = parser.parse(stream);
         return new UnknownSettingsImpl(parsed);
-    }
-
-    static IniInstance newInstance(InputStream stream, EnumSet<? extends Setting> settings) {
-        return new KnownSettingsImpl(settings);
     }
 
     Map<String, SectionData> getAll();
 
     SectionData getSection(String section);
 
-    default SectionData getSection(Section section) {
-        return getSection(section.getSection());
+    default SectionData getSection(Setting setting) {
+        return getSection(setting.getSection());
     }
 
-    String getSetting(String section, String setting, String defaultVal);
-
-    default String getSetting(String section, String setting) {
-        return getSetting(section, setting, null);
+    default String get(Setting setting) {
+        return get(setting.getSection(), setting.getSetting(), setting.getDefault());
     }
 
-    default String getSetting(Setting setting) {
-        return getSetting(setting.getSection(), setting.getSetting(), setting.getDefaultValue());
+    String get(String section, String setting, String defaultVal);
+
+    default String get(String section, String setting) {
+        return get(section, setting, null);
     }
 
+    default void set(Setting setting, String value) {
+        set(setting.getSection(), setting.getSetting(), value);
+    }
+
+    void set(String section, String setting, String value);
+
+    default void write(OutputStream out) throws IOException {
+        for (Map.Entry<String, SectionData> entry : getAll().entrySet()) {
+            String s = entry.getKey();
+            SectionData data = entry.getValue();
+            out.write(data.stringify().getBytes(StandardCharsets.UTF_8));
+        }
+    }
 }

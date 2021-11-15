@@ -8,7 +8,7 @@ what can this ini reader do? By invoking
 ```
 this is all thats needed to parse an INI file.
 
-#special feature: inheritance
+# special feature: inheritance
 by using ``[sectionName] (inheritedSectionName)``
 you can inherit all the settings in the given parentsection.
 This also supports overriding them.
