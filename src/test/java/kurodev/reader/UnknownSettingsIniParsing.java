@@ -1,6 +1,5 @@
 package kurodev.reader;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -8,8 +7,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,12 +25,13 @@ class UnknownSettingsIniParsing {
      * setting2=differentValue
      * setting1=overridden
      */
-    Path iniFile = Path.of("./testResources/inherited.ini");
-    InputStream in;
+    InputStream in = fetch("/inherited.ini");
 
-    @BeforeEach
-    void prepare() throws IOException {
-        in = Files.newInputStream(iniFile);
+    public static InputStream fetch(String name) {
+        var out = UnknownSettingsIniParsing.class.getResourceAsStream(name);
+        if (out != null)
+            return out;
+        throw new RuntimeException("Resource not found:" + name);
     }
 
     @Test

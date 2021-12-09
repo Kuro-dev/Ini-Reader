@@ -1,13 +1,14 @@
 package kurodev.reader;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.regex.Pattern;
 
 public class SectionData {
+    private static final Pattern POINTER = Pattern.compile("%[a-zA-Z1-9.-]+%");
     private final String name;
     private final Map<String, String> settings;
     private SectionData parent;
+    private List<String> pointers = null;
 
     public SectionData(String name) {
         this(name, new HashMap<>(), null);
@@ -28,6 +29,36 @@ public class SectionData {
         if (this.equals(parent)) {
             throw new IllegalArgumentException("A section cannot be the parent of itself");
         }
+    }
+
+    public static String toQueryString(String section, String setting) {
+        return section + "." + setting;
+    }
+
+    private boolean hasPointers() {
+        return pointers != null;
+    }
+
+    boolean isPointer(String section, String setting) {
+        if (hasPointers()) {
+            return pointers.contains(toQueryString(section, setting));
+        }
+        return false;
+    }
+
+    void init() {
+        for (Map.Entry<String, String> entry : settings.entrySet()) {
+            String setting = entry.getKey();
+            String value = entry.getValue();
+            if (POINTER.matcher(value).matches()) {
+                if (pointers == null) pointers = new ArrayList<>();
+                pointers.add(toQueryString(setting));
+            }
+        }
+    }
+
+    public String toQueryString(String setting) {
+        return toQueryString(name, setting);
     }
 
     void setParent(SectionData parent) {

@@ -29,7 +29,21 @@ public class UnknownSettingsImpl implements IniInstance {
 
     @Override
     public String get(String section, String setting, String defaultVal) {
-        return iniMap.get(section).get(setting, defaultVal);
+        var sectionData = iniMap.get(section);
+        if (sectionData != null) {
+            var data = sectionData.get(setting, defaultVal);
+            if (sectionData.isPointer(section, setting)) {
+                data = data.replace("%", "").trim();
+                if (data.contains(".")) {
+                    return get(data);
+                }
+                return get(section, data);
+            } else {
+                return data;
+            }
+
+        }
+        return defaultVal;
     }
 
     @Override
