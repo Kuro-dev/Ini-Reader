@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-class IniParser {
+public class IniParser {
     private static final Pattern SECTION = Pattern.compile("(\\[.+])\\s*(\\(.+\\))?");
     private static final Pattern SECTION_MAIN = Pattern.compile("\\[(.+)]");
     private static final Pattern SECTION_INHERITANCE = Pattern.compile("\\((.+)\\)");
@@ -24,6 +24,8 @@ class IniParser {
         var lines = reader.lines().collect(Collectors.toList());
         readSections(lines);
         assignMissingParents();
+        map.forEach((s, sectionData) -> sectionData.init());
+
         return map;
     }
 
@@ -34,12 +36,12 @@ class IniParser {
             if (SECTION.matcher(lines.get(i)).matches()) {
                 lastSection = onSectionFound(lines, i, lastSectionFound, lastSection);
                 lastSectionFound = i;
-                map.put(lastSection.getName(),lastSection);
+                map.put(lastSection.getName(), lastSection);
             }
         }
         assert lastSection != null;
-        map.put(lastSection.getName(),lastSection);
-        for (int i = lastSectionFound+1; i < lines.size(); i++) {
+        map.put(lastSection.getName(), lastSection);
+        for (int i = lastSectionFound + 1; i < lines.size(); i++) {
             parseSetting(lastSection, lines.get(i));
         }
     }

@@ -42,6 +42,7 @@ class UnknownSettingsIniParsing {
         assertEquals(6, instance.getSection("iniSection").size());
         assertEquals("iniValue", instance.get("section1", "setting1"));
         assertEquals("overridden", instance.get("section3", "setting1"));
+        assertEquals("overridden", instance.get("section3.setting1"));
     }
 
     @Test

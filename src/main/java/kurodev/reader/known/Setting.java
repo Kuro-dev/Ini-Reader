@@ -9,6 +9,10 @@ public interface Setting {
     @NotNull
     String getSetting();
 
+    default DataType getType() {
+        return DataType.STRING;
+    }
+
     /**
      * determines whether or not a default value is allowed
      * to be written if the value is missing or missing verification
@@ -30,6 +34,6 @@ public interface Setting {
      * Verifies the value of the given setting.
      */
     default boolean verify(String settingValue) {
-        return true;
+        return getType().matches(settingValue);
     }
 }

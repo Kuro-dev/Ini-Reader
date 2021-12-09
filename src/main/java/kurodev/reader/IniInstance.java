@@ -43,6 +43,20 @@ public interface IniInstance {
 
     String get(String section, String setting, String defaultVal);
 
+    /**
+     * @param query the setting to be fetched. allowed string syntax: section.setting or null if none could be found
+     */
+    default String get(String query) {
+        if (query.contains(".")) {
+            int index = query.indexOf(".");
+            var section = query.substring(0, index);
+            var setting = query.substring(index + 1);
+            return get(section, setting);
+        } else {
+            throw new IllegalArgumentException("query string must conform to 'section.setting' syntax");
+        }
+    }
+
     default String get(String section, String setting) {
         return get(section, setting, null);
     }
