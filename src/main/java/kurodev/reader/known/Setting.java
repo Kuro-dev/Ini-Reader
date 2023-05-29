@@ -1,15 +1,18 @@
 package kurodev.reader.known;
 
 import kurodev.reader.IniInstance;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
 
 public interface Setting {
-    @NotNull
+    /**
+     * must not return null
+     */
     String getSection();
 
-    @NotNull
+    /**
+     * must not return null
+     */
     String getSetting();
 
     default DataType getType() {
@@ -19,10 +22,12 @@ public interface Setting {
     /**
      * determines whether or not a default value is allowed
      * to be written if the value is missing or missing verification
+     * <p>
+     * must not be null
+     * </p>
      *
      * @see AutoAction
      */
-    @NotNull
     default BiConsumer<Setting, IniInstance> onNotFound() {
         return AutoAction.SET_DEFAULT;
     }
