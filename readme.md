@@ -1,14 +1,28 @@
 # Ini Reader
-
-what can this ini reader do? By invoking
-
-```java myJavaTab
-    InputStream in=Files.newInputStream(iniFile);
-    IniInstance instance=IniInstance.newInstance(in);
+### Maven:
+```xml
+<dependency>
+  <groupId>org.kurodev</groupId>
+  <artifactId>ini-ieader</artifactId>
+  <version>1.0</version>
+</dependency> 
 ```
-this is all thats needed to parse an INI file.
 
-#special feature: inheritance
+### Example:
+This is all that's needed to parse an INI file.
+```java myJavaTab
+public class Example {
+    public static void main(String[] args) {
+        Path iniFile = Path.of('./my/path.ini');
+        InputStream in = Files.newInputStream(iniFile);
+        IniInstance instance = IniInstance.newInstance(in);
+    }
+}
+
+```
+
+
+# special feature: inheritance
 by using ``[sectionName] (inheritedSectionName)``
 you can inherit all the settings in the given parentsection.
 This also supports overriding them.
