@@ -33,7 +33,7 @@ public class PointerImplTest {
 
         //change value of test
         ini.set("section1", "test", "some other string");
-        assertEquals(ini.get("section1.test"), "some other string");
+        assertEquals(ini.get("section1.test").orElse(null), "some other string");
         //pointers should still resolve the same value
         assertEquals(ini.get("section1.test"), ini.get("section1.pointer"));
         assertEquals(ini.get("section1.test"), ini.get("section1.pointer"));

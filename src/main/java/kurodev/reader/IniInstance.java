@@ -3,11 +3,13 @@ package kurodev.reader;
 import kurodev.reader.known.KnownSettingsImpl;
 import kurodev.reader.known.Setting;
 
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
@@ -46,13 +48,13 @@ public interface IniInstance {
         return getSection(setting.getSection());
     }
 
-    default String get(Setting setting) {
+    default Optional<String> get(Setting setting) {
         return get(setting.getSection(), setting.getSetting(), setting.getDefault());
     }
 
-    String get(String section, String setting, String defaultVal);
+    Optional<String> get(String section, String setting, String defaultVal);
 
-    default String get(String query) {
+    default Optional<String> get(String query) {
         if (query.contains(".")) {
             int index = query.indexOf(".");
             var section = query.substring(0, index);
@@ -66,7 +68,7 @@ public interface IniInstance {
     /**
      * @see #set(String, String, String)
      */
-    default String get(String section, String setting) {
+    default Optional<String> get(String section, String setting) {
         return get(section, setting, null);
     }
 

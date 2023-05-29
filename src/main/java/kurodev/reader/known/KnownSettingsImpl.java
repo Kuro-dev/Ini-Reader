@@ -3,10 +3,7 @@ package kurodev.reader.known;
 import kurodev.reader.SectionData;
 import kurodev.reader.UnknownSettingsImpl;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class KnownSettingsImpl extends UnknownSettingsImpl {
     private final Set<? extends Setting> settings;
@@ -22,9 +19,9 @@ public class KnownSettingsImpl extends UnknownSettingsImpl {
 
     public void init() {
         for (Setting setting : settings) {
-            String result = get(setting);
-            if (result != null) {
-                if (!setting.verify(result)) {
+            Optional<String> result = get(setting);
+            if (result.isPresent()) {
+                if (!setting.verify(result.get())) {
                     throw new ValidationException("Value for setting " + setting + "was invalid. (value: '" + result + "')");
                 }
             } else {

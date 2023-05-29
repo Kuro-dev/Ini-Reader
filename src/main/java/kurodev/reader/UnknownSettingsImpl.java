@@ -2,6 +2,7 @@ package kurodev.reader;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Settings are not known at runtime
@@ -28,10 +29,10 @@ public class UnknownSettingsImpl implements IniInstance {
     }
 
     @Override
-    public String get(String section, String setting, String defaultVal) {
+    public Optional<String> get(String section, String setting, String defaultVal) {
         var sectionData = iniMap.get(section);
         if (sectionData != null) {
-            var data = sectionData.get(setting, defaultVal);
+            String data = sectionData.get(setting, defaultVal);
             if (sectionData.isPointer(section, setting)) {
                 data = data.replace("%", "").trim();
                 if (data.contains(".")) {
@@ -39,11 +40,11 @@ public class UnknownSettingsImpl implements IniInstance {
                 }
                 return get(section, data);
             } else {
-                return data;
+                return Optional.ofNullable(data);
             }
 
         }
-        return defaultVal;
+        return Optional.ofNullable(defaultVal);
     }
 
     @Override
