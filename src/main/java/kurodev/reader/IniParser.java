@@ -33,7 +33,7 @@ public class IniParser {
         int lastSectionFound = -1;
         SectionData lastSection = null;
         for (int i = 0; i < lines.size(); i++) {
-            if (SECTION.matcher(lines.get(i)).matches()) {
+            if (SECTION.matcher(lines.get(i).trim()).matches()) {
                 lastSection = onSectionFound(lines, i, lastSectionFound, lastSection);
                 lastSectionFound = i;
                 map.put(lastSection.getName(), lastSection);
@@ -89,9 +89,8 @@ public class IniParser {
         final int keyIndex = 0;
         final int valueIndex = 1;
         if (keyValue.length > 1) {
-            final String whiteSpace = "\\s";
-            final String key = keyValue[keyIndex].replaceAll(whiteSpace, "");
-            final String value = keyValue[valueIndex].replaceAll(whiteSpace, "");
+            final String key = keyValue[keyIndex].trim();
+            final String value = keyValue[valueIndex].trim();
             section.getSettings().put(key, value);
         } else
             throw new IllegalArgumentException("Cannot parse: " + keyValuePair);

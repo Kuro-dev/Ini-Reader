@@ -4,6 +4,9 @@ import kurodev.reader.IniInstance;
 
 import java.util.function.BiConsumer;
 
+/**
+ * A set of predefined actions to handle failed verifications
+ */
 public enum AutoAction implements BiConsumer<Setting, IniInstance> {
     /**
      * Will attempt to set a default value for the given setting.

@@ -31,7 +31,7 @@ public class SectionData {
         }
     }
 
-    public static String toQueryString(String section, String setting) {
+    private static String toQueryString(String section, String setting) {
         return section + "." + setting;
     }
 

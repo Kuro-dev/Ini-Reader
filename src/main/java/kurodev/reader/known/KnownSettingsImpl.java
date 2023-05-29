@@ -6,15 +6,16 @@ import kurodev.reader.UnknownSettingsImpl;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class KnownSettingsImpl extends UnknownSettingsImpl {
-    private final EnumSet<? extends Setting> settings;
+    private final Set<? extends Setting> settings;
 
     public KnownSettingsImpl(EnumSet<? extends Setting> settings) {
         this(new HashMap<>(), settings);
     }
 
-    public KnownSettingsImpl(Map<String, SectionData> parsed, EnumSet<? extends Setting> settings) {
+    public KnownSettingsImpl(Map<String, SectionData> parsed, Set<? extends Setting> settings) {
         super(parsed);
         this.settings = settings;
     }

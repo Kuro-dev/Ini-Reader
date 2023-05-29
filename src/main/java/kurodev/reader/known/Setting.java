@@ -1,6 +1,9 @@
 package kurodev.reader.known;
 
+import kurodev.reader.IniInstance;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.BiConsumer;
 
 public interface Setting {
     @NotNull
@@ -16,9 +19,11 @@ public interface Setting {
     /**
      * determines whether or not a default value is allowed
      * to be written if the value is missing or missing verification
+     *
+     * @see AutoAction
      */
     @NotNull
-    default AutoAction onNotFound() {
+    default BiConsumer<Setting, IniInstance> onNotFound() {
         return AutoAction.SET_DEFAULT;
     }
 
