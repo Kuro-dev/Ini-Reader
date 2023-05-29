@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-class IniParser {
+public class IniParser {
     private static final Pattern SECTION = Pattern.compile("(\\[.+])\\s*(\\(.+\\))?");
     private static final Pattern SECTION_MAIN = Pattern.compile("\\[(.+)]");
     private static final Pattern SECTION_INHERITANCE = Pattern.compile("\\((.+)\\)");
@@ -22,20 +22,31 @@ class IniParser {
     public Map<String, SectionData> parse(InputStream stream) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         var lines = reader.lines().collect(Collectors.toList());
+        readSections(lines);
+        assignMissingParents();
+        map.forEach((s, sectionData) -> sectionData.init());
+
+        return map;
+    }
+
+    private void readSections(List<String> lines) {
         int lastSectionFound = -1;
         SectionData lastSection = null;
         for (int i = 0; i < lines.size(); i++) {
-            if (SECTION.matcher(lines.get(i)).matches()) {
+            if (SECTION.matcher(lines.get(i).trim()).matches()) {
                 lastSection = onSectionFound(lines, i, lastSectionFound, lastSection);
                 lastSectionFound = i;
-                map.put(lastSection.getName(),lastSection);
+                map.put(lastSection.getName(), lastSection);
             }
         }
         assert lastSection != null;
-        map.put(lastSection.getName(),lastSection);
-        for (int i = lastSectionFound+1; i < lines.size(); i++) {
+        map.put(lastSection.getName(), lastSection);
+        for (int i = lastSectionFound + 1; i < lines.size(); i++) {
             parseSetting(lastSection, lines.get(i));
         }
+    }
+
+    private void assignMissingParents() {
         //assign missing parents to their children
         for (int i = 0, missingParentsMapSize = missingParents.size(); i < missingParentsMapSize; i++) {
             Pair<SectionData, String> missing = missingParents.get(i);
@@ -46,7 +57,6 @@ class IniParser {
             missing.getKey().setParent(parent);
             missingParents.remove(i);
         }
-        return map;
     }
 
     private SectionData onSectionFound(List<String> lines, int index, int lastSectionIndex, SectionData lastSection) {
@@ -79,9 +89,8 @@ class IniParser {
         final int keyIndex = 0;
         final int valueIndex = 1;
         if (keyValue.length > 1) {
-            final String whiteSpace = "\\s";
-            final String key = keyValue[keyIndex].replaceAll(whiteSpace, "");
-            final String value = keyValue[valueIndex].replaceAll(whiteSpace, "");
+            final String key = keyValue[keyIndex].trim();
+            final String value = keyValue[valueIndex].trim();
             section.getSettings().put(key, value);
         } else
             throw new IllegalArgumentException("Cannot parse: " + keyValuePair);
