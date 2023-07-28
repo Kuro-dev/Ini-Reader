@@ -4,7 +4,7 @@
 <dependency>
   <groupId>org.kurodev</groupId>
   <artifactId>ini-reader</artifactId>
-  <version>1.1</version>
+  <version>1.1.1</version>
 </dependency>
 ```
 
