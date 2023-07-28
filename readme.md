@@ -3,9 +3,9 @@
 ```xml
 <dependency>
   <groupId>org.kurodev</groupId>
-  <artifactId>ini-ieader</artifactId>
-  <version>1.0</version>
-</dependency> 
+  <artifactId>ini-reader</artifactId>
+  <version>1.1</version>
+</dependency>
 ```
 
 ### Example:
