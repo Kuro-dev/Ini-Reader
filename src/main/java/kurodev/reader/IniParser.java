@@ -21,7 +21,7 @@ public class IniParser {
 
     public Map<String, SectionData> parse(InputStream stream) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        var lines = reader.lines().filter(String::isBlank).collect(Collectors.toList());
+        var lines = reader.lines().filter(s1 -> !s1.isBlank()).collect(Collectors.toList());
         readSections(lines);
         assignMissingParents();
         map.forEach((s, sectionData) -> sectionData.init());
